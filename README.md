@@ -14,7 +14,7 @@ Features:
 2. #4 (sex) (0 = female, 1 = male) 
 3. #9 (cp) cp: chest pain type -- 1: typical angina -- 2: atypical angina -- 3: non-anginal pain -- 4: asymptomatic 
 4. #10 (trestbps) trestbps: resting blood pressure (in mm Hg on admission to the hospital) 
-5. #12 (chol) chol: serum cholestoral in mg/dl
+5. #12 (chol) chol: serum cholesterol in mg/dl
 6. #16 (fbs) fbs: (fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)
 7. #19 (restecg) restecg: resting electrocardiographic results
 8. #32 (thalach) halach: maximum heart rate achieved

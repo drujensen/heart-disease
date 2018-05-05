@@ -104,6 +104,6 @@ model : SHAInet::Network = SHAInet::Network.new
 model.load_from_file("./model/heart-disease.nn")
 
 # age, sex, chest pain type, bp, chol, sugar > 120, ecg, max heart rate, induced angina, induced ST depression
-results = model.run([49, 1, 4, 140, 200, 0, 0.22, 170, 0, 0])
+results = model.run([49, 1, 4, 140, 172, 0, 0.22, 181, 0, 0])
 puts "There is a #{((1 - results[0]) * 100).round} percent chance you have heart disease"
 ```
