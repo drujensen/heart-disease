@@ -17,6 +17,9 @@ Features:
 5. #12 (chol) chol: serum cholesterol in mg/dl
 6. #16 (fbs) fbs: (fasting blood sugar > 120 mg/dl) (1 = true; 0 = false)
 7. #19 (restecg) restecg: resting electrocardiographic results
+    -- Value 0: normal 
+    -- Value 1: having ST-T wave abnormality (T wave inversions and/or ST elevation or depression of > 0.05 mV) 
+    -- Value 2: showing probable or definite left ventricular hypertrophy by Estes' criteria
 8. #32 (thalach) halach: maximum heart rate achieved
 9. #38 (exang) exercise induced angina (1 = yes; 0 = no)
 10. #40 (oldpeak) oldpeak = ST depression induced by exercise relative to rest
@@ -25,7 +28,7 @@ Features:
 13. #51 (thal) thaldur: duration of exercise test in minutes
 14. #58 (num) (the predicted attribute) num: diagnosis of heart disease (angiographic disease status) -- Value 0: < 50% diameter narrowing -- Value 1: > 50% diameter narrowing (in any major vessel: attributes 59 through 68 are vessels)
 
-If any publications resulting from the use of the data, it is requested that you include the names of the principal investigator responsible for the data collection at each institution:
+Creators:
 
  1. Hungarian Institute of Cardiology. Budapest: Andras Janosi, M.D.
  2. University Hospital, Zurich, Switzerland: William Steinbrunn, M.D.

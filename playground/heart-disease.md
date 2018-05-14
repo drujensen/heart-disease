@@ -141,6 +141,6 @@ model : SHAInet::Network = SHAInet::Network.new
 model.load_from_file("./model/heart-disease.nn")
 
 # age, sex, chest pain type, bp, chol, sugar > 120, ecg, max heart rate, induced angina, induced ST depression
-results = model.run(training.normalize_inputs([49, 1, 4, 140, 172, 0, 0.22, 158, 0, 0]))
+results = model.run(training.normalize_inputs([49, 1, 4, 140, 172, 0, 0, 158, 0, 0]))
 puts "There is a #{(training.denormalize_outputs(results)[1] * 100).round} percent chance you have heart disease"
 ```
