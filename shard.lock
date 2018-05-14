@@ -1,6 +1,6 @@
 version: 1.0
 shards:
   shainet:
-    github: NeuraLegion/shainet
-    version: 2.0.0
+    github: drujensen/shainet
+    commit: 119a54d7a5478fc3e564888bddba3e21fcd54b5c
 

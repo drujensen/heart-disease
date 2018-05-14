@@ -98,12 +98,49 @@ puts "Accuracy: #{(tn + tp) / outputs.size.to_f}"
 ## Try it out
 
 ```playground
+require "csv"
 require "shainet"
+
+# use binary dummy columns for `Outcome` column
+label = {
+  "0" => [1.to_f64, 0.to_f64],
+  "1" => [0.to_f64, 1.to_f64],
+}
+
+# data structures to hold the input and results
+inputs = Array(Array(Float64)).new
+outputs = Array(Array(Float64)).new
+
+# read the file
+raw = File.read("./data/heart-disease.csv")
+csv = CSV.new(raw, headers: true)
+
+# we don't want these columns so we won't load them
+headers = csv.headers.reject { |h| ["slope", "ca", "thal", "num"].includes?(h) }
+
+# load the data structures
+while (csv.next)
+  missing_data = false
+  row_arr = Array(Float64).new
+  headers.each do |header|
+    if csv.row[header] == "?"
+      missing_data = true
+    else
+      row_arr << csv.row[header].to_f64
+    end
+  end
+  inputs << row_arr unless missing_data
+  outputs << label[csv.row["num"]]
+end
+
+# normalize the data
+training = SHAInet::TrainingData.new(inputs, outputs)
+training.normalize_min_max
 
 model : SHAInet::Network = SHAInet::Network.new
 model.load_from_file("./model/heart-disease.nn")
 
 # age, sex, chest pain type, bp, chol, sugar > 120, ecg, max heart rate, induced angina, induced ST depression
-results = model.run([49, 1, 4, 140, 172, 0, 0.22, 181, 0, 0])
-puts "There is a #{((1 - results[0]) * 100).round} percent chance you have heart disease"
+results = model.run(training.normalize_inputs([49, 1, 4, 140, 172, 0, 0.22, 158, 0, 0]))
+puts "There is a #{(training.denormalize_outputs(results)[1] * 100).round} percent chance you have heart disease"
 ```

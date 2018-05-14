@@ -34,8 +34,8 @@ while (csv.next)
 end
 
 # normalize the data
-normalized = SHAInet::TrainingData.new(inputs, outputs)
-normalized.normalize_min_max
+training = SHAInet::TrainingData.new(inputs, outputs)
+training.normalize_min_max
 
 # create a network
 model : SHAInet::Network = SHAInet::Network.new
@@ -49,7 +49,7 @@ model.learning_rate = 0.01
 model.momentum = 0.01
 
 # train the network
-model.train(normalized.data.shuffle, :sgdm, :mse, epoch = 1000, threshold = -1.0, log = 100)
+model.train(training.data.shuffle, :sgdm, :mse, epoch = 1000, threshold = -1.0, log = 100)
 
 # save to file
 model.save_to_file("./model/heart-disease.nn")
@@ -57,7 +57,7 @@ model.save_to_file("./model/heart-disease.nn")
 tn = tp = fn = fp = 0
 
 # determine accuracy
-normalized.normalized_inputs.each_with_index do |test, idx|
+training.normalized_inputs.each_with_index do |test, idx|
   results = model.run(test)
   if results[0] < 0.5
     if outputs[idx][0] == 0.0
@@ -81,3 +81,7 @@ puts "----------------------"
 puts "FN: #{fn} | TP: #{tp}"
 puts "----------------------"
 puts "Accuracy: #{(tn + tp) / outputs.size.to_f}"
+
+# age, sex, chest pain type, bp, chol, sugar > 120, ecg, max heart rate, induced angina, induced ST depression
+results = model.run(training.normalize_inputs([49, 1, 4, 140, 172, 0, 0.22, 158, 0, 0]))
+puts "There is a #{(training.denormalize_outputs(results)[1] * 100).round} percent chance you have heart disease"
