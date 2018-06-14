@@ -48,8 +48,18 @@ model.fully_connect
 model.learning_rate = 0.01
 model.momentum = 0.01
 
-# train the network
-model.train(training.data.shuffle, :sgdm, :mse, epoch = 1000, threshold = -1.0, log = 100)
+# train the network using evolutionary strategy
+model.train_es(
+  data: training.data.shuffle,
+  pool_size: 50,
+  learning_rate: 0.5,
+  sigma: 0.1,
+  cost_function: :c_ent,
+  epochs: 500,
+  mini_batch_size: 15,
+  error_threshold: 0.00000001,
+  log_each: 100,
+  show_slice: true)
 
 # save to file
 model.save_to_file("./model/heart-disease.nn")
